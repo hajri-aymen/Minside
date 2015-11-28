@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div id="wrapper">
+        <div id="container">
+            <table>
+                <thead>
+                {% if response.0 is defined %}
+                    {% set headArray = response.0 %}
+                    {% for key in headArray|keys %}
+                        <th>{{ key }}</th>
+                    {% endfor %}
+                {% endif %}
+                </thead>
+                <tbody>
+                {% for json in response %}
+                    <tr>
+                    {% for key, value in json %}
+                        {% if value is iterable %}
+                            <td>tableau </td>
+                        {% else %}
+                            <td>{{ value }}</td>
+                        {% endif %}
+
+                    {% endfor %}
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+
+        </div>
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+
+{% endblock %}
