@@ -1,0 +1,68 @@
+{% extends '::base.html.twig' %}
+{% block page_title %} Liste
+    <small>des utilisateurs</small>
+{% endblock page_title %}
+{% block page_breadcrumb %}
+    <ul class="page-breadcrumb">
+        <li>
+            <i class="fa fa-home"></i>
+            <a href="index.html">Gestion des utilisateurs</a>
+            <i class="fa fa-angle-right"></i>
+        </li>
+        <li>
+            <a href="#">Liste des utilisateurs</a>
+        </li>
+    </ul>
+{% endblock page_breadcrumb %}
+{% block content %}
+    <div class="portlet light">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="fa fa-list font-green-sharp"></i>
+                <span class="caption-subject font-green-sharp bold uppercase">Liste des utilisateurs</span>
+            </div>
+            <div class="tools">
+                <a href="javascript:;" class="collapse">
+                </a>
+            </div>
+        </div>
+        <div class="portlet-body">
+            <div class="table-scrollable table-scrollable-borderless">
+                <table class="table table-hover table-light" id="myTable">
+                    <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Email</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for user in users %}
+                        {% set username = user.username|split('@') %}
+                        <tr>
+                            <td>{{ username.0}}</td>
+                            <td>{{ user.email }}</td>
+
+                        </tr>
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block stylesheets %}
+{{ parent() }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+        $(document).ready(function(){
+            $('#myTable').DataTable();
+        });
+    </script>
+{% endblock %}
