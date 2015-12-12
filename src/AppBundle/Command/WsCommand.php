@@ -15,7 +15,7 @@ class WsCommand extends ContainerAwareCommand
     {
         $this
             ->setName('ws:exploit')
-            ->setDescription('command to parse ws json response and set it dynamicly to database')
+            ->setDescription('command to parse ws xml/json response and set it dynamicly to database')
             ->addArgument(
                 'url',
                 InputArgument::REQUIRED,

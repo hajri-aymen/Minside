@@ -21,6 +21,8 @@ fos_user_change_password:
     resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
     prefix: /profile
 
+user_bundle_routes:
+    resource: "@UserBundle/Resources/config/routing.yml"
 
 root:
     pattern: /

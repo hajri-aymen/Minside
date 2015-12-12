@@ -1,0 +1,70 @@
+{% extends '::base.html.twig' %}
+{% block page_title %} Liste
+    <small>des utilisateurs</small>
+{% endblock page_title %}
+{% block page_breadcrumb %}
+    <ul class="page-breadcrumb">
+        <li>
+            <i class="fa fa-home"></i>
+            <a href="index.html">Gestion des utilisateurs</a>
+            <i class="fa fa-angle-right"></i>
+        </li>
+        <li>
+            <a href="#">Importer utilisateurs</a>
+        </li>
+    </ul>
+{% endblock page_breadcrumb %}
+{% block content %}
+    <div class="portlet light">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="fa fa-list font-green-sharp"></i>
+                <span class="caption-subject font-green-sharp bold uppercase">Importer utilisateurs</span>
+            </div>
+            <div class="tools">
+                <a href="javascript:;" class="collapse">
+                </a>
+            </div>
+        </div>
+        <div class="portlet-body">
+            <div class="table-scrollable table-scrollable-borderless">
+                    <h3 style="margin-top: 0px;">Importer depuis une API</h3>
+                    <form class="form-inline"  role="form" action="{{ path('import_user') }}" method="post">
+                        <div class="input-group col-lg-8">
+                            <input  type="url" class="form-control" id="url" name="url" value="" placeholder="URL : " />
+                        </div>
+                        <div class="input-group input-small">
+                            <select name="data_model" id="data_model" class="form-control">
+                                <option value="application/xml">XML</option>
+                                <option value="application/json">JSON</option>
+                            </select>
+                        </div>
+
+                        <br>
+                        <br>
+                        <!-- /input-group -->
+                        <div class="relogin">
+                            <button type="submit" id="_submit" name="_submit" class="btn btn-primary">Importer</button>
+                        </div>
+                    </form>
+
+                <br>
+                <pre>
+                {% if content is defined and content != '' %}
+                    {{ content|raw }}
+                {% endif %}
+                </pre>
+                </div>
+            {#</div>#}
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}

@@ -1,0 +1,3 @@
+import_user:
+    path:     user/import
+    defaults: { _controller: UserBundle:Default:import }

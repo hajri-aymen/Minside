@@ -182,7 +182,7 @@
                                     </li>
 
                                     <li class="{% if app.request.attributes.get('_route') == '' %}active{% endif %}">
-                                        <a href="{# {{ path('minside_users_liste') }} #}">
+                                        <a href="{{ path('import_user') }}">
                                             Importer utilisateurs</a>
                                     </li>
                                 </ul>
