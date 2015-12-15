@@ -76,3 +76,8 @@ fos_user:
     db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
     firewall_name: main
     user_class: UserBundle\Entity\User
+
+jms_serializer:
+    metadata:
+        directories:
+            - { path: '%kernel.root_dir%/Resources/FOSUserBundle/serializer', namespace_prefix: 'FOS\UserBundle' }

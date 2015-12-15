@@ -22,6 +22,7 @@ class AppKernel extends Kernel
             new AppBundle\AppBundle(),
             new UserBundle\UserBundle(),
             new Misd\GuzzleBundle\MisdGuzzleBundle(),
+            new JMS\SerializerBundle\JMSSerializerBundle()
 
         );
 
