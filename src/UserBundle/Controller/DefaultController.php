@@ -9,6 +9,8 @@ use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 
+use AppBundle\Extractor\ExtractionEngine;
+
 class DefaultController extends Controller
 {
 
@@ -17,13 +19,19 @@ class DefaultController extends Controller
         $request = $this->get('request');
         if ($request->getMethod() == 'POST') {
             $url = $request->request->get('url');
-            $content = $this->executeCommand($url);
+            $dataType = $request->request->get('data_type');
+//            $guzzleService =  $this->get('guzzle.client');
+//            $serializer = $this->get('jms_serializer');
+//            $extractionEngine = new ExtractionEngine($url, $dataType, $guzzleService, $serializer);
+//            $extractionEngine->exploit();
+            $content = $this->executeCommand($url, $dataType);
+            dump($content);die;
             return $this->render('UserBundle:Default:import.html.twig', array('content' => $content));
         }
         return $this->render('UserBundle:Default:import.html.twig', array());
     }
 
-    private function executeCommand($url)
+    private function executeCommand($url, $dataType)
     {
         $kernel = $this->get('kernel');
         $application = new Application($kernel);
@@ -32,6 +40,7 @@ class DefaultController extends Controller
         $input = new ArrayInput(array(
             'command' => 'ws:exploit',
             'url' => $url,
+            'dataType' => $dataType,
         ));
         // You can use NullOutput() if you don't need the output
         $output = new BufferedOutput();

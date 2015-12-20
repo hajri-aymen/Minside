@@ -1,0 +1,6 @@
+FOS\UserBundle\Model\User:
+  exclusion_policy: ALL
+  properties:
+      is_active:
+          expose: true
+          type: boolean

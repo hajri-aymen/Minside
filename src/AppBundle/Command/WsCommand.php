@@ -8,6 +8,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 use UserBundle\Entity\User;
+use AppBundle\Extractor\ExtractionEngine;
 
 class WsCommand extends ContainerAwareCommand
 {
@@ -20,17 +21,28 @@ class WsCommand extends ContainerAwareCommand
                 'url',
                 InputArgument::REQUIRED,
                 'Entrez l\'url de votre api'
+            )
+            ->addArgument(
+                'dataType',
+                InputArgument::REQUIRED,
+                'xml/json'
             );
 
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $guzzleService =  $this->getContainer()->get('guzzle.client');
         $url = $input->getArgument('url');
+        $dataType = $input->getArgument('dataType');
+        $serializer = $this->getContainer()->get('jms_serializer');
+        $guzzleService =  $this->getContainer()->get('guzzle.client');
         $guzzleService->get($url);
-        $request = $guzzleService->get($url);
-        $response = $request->send()->json();
+//        $request = $guzzleService->get($url);
+        $extractionEngine = new ExtractionEngine($url, $dataType, $guzzleService, $serializer);
+        $response = $extractionEngine->exploit();
+
+
+//        $response = $request->send()->json();
         $userManager = $this->getContainer()->get('fos_user.user_manager');
         foreach($response as $userArray) {
 

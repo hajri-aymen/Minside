@@ -34,7 +34,7 @@ class User extends BaseUser
     /**
      * @var boolean
      *
-     * @ORM\Column(name="is_active", type="boolean")
+     * @ORM\Column(name="is_active", type="boolean", nullable=true)
      */
     protected $isActive;
 

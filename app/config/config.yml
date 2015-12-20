@@ -78,6 +78,9 @@ fos_user:
     user_class: UserBundle\Entity\User
 
 jms_serializer:
-    metadata:
-        directories:
-            - { path: '%kernel.root_dir%/Resources/FOSUserBundle/serializer', namespace_prefix: 'FOS\UserBundle' }
+  metadata:
+    auto_detection: true
+    directories:
+      FOSUserBundle:
+        namespace_prefix: "FOS\\UserBundle"
+        path: "@UserBundle/Resources/config/serializer"
