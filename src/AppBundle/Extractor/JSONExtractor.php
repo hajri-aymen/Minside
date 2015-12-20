@@ -24,20 +24,18 @@ class JSONExtractor extends AbstractExtractor
 
     public function extract($data, $serializer)
     {
-        $content = array();
+        $users = array();
         foreach ($data->json() as $element) {
             $element['name'] = $element['name']['first'] .' '. $element['name']['last'];
             unset($element['friends']);
             unset($element['range']);
             unset($element['tags']);
-            $content[] = $element;
-
-
-//            $user = $serializer->deserialize(json_encode($element), parent::USER_CLASS, ExtractorEnum::EXTRACTOR_JSON);
+            $user = $serializer->deserialize(json_encode($element), parent::USER_CLASS, ExtractorEnum::EXTRACTOR_JSON);
+            $users[] = $user;
 
         }
 
-        return $content;
+        return $users;
 
     }
 

@@ -35,37 +35,38 @@ class WsCommand extends ContainerAwareCommand
         $url = $input->getArgument('url');
         $dataType = $input->getArgument('dataType');
         $serializer = $this->getContainer()->get('jms_serializer');
-        $guzzleService =  $this->getContainer()->get('guzzle.client');
+        $guzzleService = $this->getContainer()->get('guzzle.client');
         $guzzleService->get($url);
-//        $request = $guzzleService->get($url);
         $extractionEngine = new ExtractionEngine($url, $dataType, $guzzleService, $serializer);
         $response = $extractionEngine->exploit();
-
-
-//        $response = $request->send()->json();
         $userManager = $this->getContainer()->get('fos_user.user_manager');
-        foreach($response as $userArray) {
+        if (count($response) > 0) {
+            foreach ($response as $user) {
 
-            $exists = $userManager->findUserBy(array('email' => $userArray['email']));
+                $exists = $userManager->findUserBy(array('email' => $user->getEmail()));
 
-            // Modifier l'utilisateur s'il existe deja
-            if ($exists instanceof User) {
-                $userAdmin = $exists;
-            } else {
-                $userAdmin = $userManager->createUser();
+                // Modifier l'utilisateur s'il existe deja
+                if ($exists instanceof User) {
+                    $userAdmin = $exists;
+                } else {
+                    $user->__construct();
+                    $userAdmin = $user;
+                }
+                $userAdmin->setUsername($user->getEmail());
+                $userAdmin->setUsernameCanonical($user->getEmail());
+                $userAdmin->setEmailCanonical($user->getEmail());
+                $userAdmin->setEnabled(true);
+                $userAdmin->addRole('ROLE_ADMIN');
+
+                $userManager->updateUser($userAdmin, true);
             }
-            $userAdmin->setUsername($userArray['email']);
-            $userAdmin->setEmail($userArray['email']);
-            $userAdmin->setPlainPassword($userArray['guid']);
-            $userAdmin->setEnabled(true);
-            $userAdmin->addRole('ROLE_ADMIN');
-
-            $userManager->updateUser($userAdmin, true);
-        }
-        if ($url) {
-            $text = 'Success ... users were added to database';
+            if ($url) {
+                $text = 'Success ... users were added to database';
+            } else {
+                $text = 'Error ... an error occured when parsing json response';
+            }
         } else {
-            $text = 'Error ... an error occured when parsing json response';
+            $text = 'Une erreur est survenue, veuillez vérifier votre saisie';
         }
 
         $output->writeln($text);

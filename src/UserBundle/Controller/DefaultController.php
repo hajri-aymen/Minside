@@ -9,7 +9,6 @@ use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 
-use AppBundle\Extractor\ExtractionEngine;
 
 class DefaultController extends Controller
 {
@@ -20,12 +19,8 @@ class DefaultController extends Controller
         if ($request->getMethod() == 'POST') {
             $url = $request->request->get('url');
             $dataType = $request->request->get('data_type');
-//            $guzzleService =  $this->get('guzzle.client');
-//            $serializer = $this->get('jms_serializer');
-//            $extractionEngine = new ExtractionEngine($url, $dataType, $guzzleService, $serializer);
-//            $extractionEngine->exploit();
             $content = $this->executeCommand($url, $dataType);
-            dump($content);die;
+
             return $this->render('UserBundle:Default:import.html.twig', array('content' => $content));
         }
         return $this->render('UserBundle:Default:import.html.twig', array());

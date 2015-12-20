@@ -4,3 +4,33 @@ FOS\UserBundle\Model\User:
       is_active:
           expose: true
           type: boolean
+      username:
+          type: string
+          expose: true
+      usernameCanonical:
+          type: string
+          exclude: true
+      email:
+          type: string
+          expose: true
+      enabled:
+          type: boolean
+          expose: true
+      locked:
+          type: boolean
+          expose: true
+      lastLogin:
+          type: DateTime
+          expose: true
+      updated_at:
+          type: DateTime
+          expose: true
+      created_at:
+          type: DateTime
+          expose: true
+      eyeColor:
+          type: string
+          expose: true
+      favoriteFruit:
+          type: string
+          expose: true

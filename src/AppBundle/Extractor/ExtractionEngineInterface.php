@@ -11,4 +11,5 @@ namespace AppBundle\Extractor;
 interface ExtractionEngineInterface
 {
 
+    public  function exploit();
 }

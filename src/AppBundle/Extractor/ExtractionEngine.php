@@ -49,32 +49,10 @@ class ExtractionEngine implements ExtractionEngineInterface
                 $content =$extractor->extract($data, $serializer);
                 return $content;
             }
-        } else {
-            //TODO::erreur
-            die('erreur');
         }
+        
         return $content;
 
     }
 
-//    public function executeCommand($url)
-//    {
-//        $kernel = $this->get('kernel');
-//        $application = new Application($kernel);
-//        $application->setAutoExit(false);
-//
-//        $input = new ArrayInput(array(
-//            'command' => 'ws:exploit',
-//            'url' => $url,
-//        ));
-//        // You can use NullOutput() if you don't need the output
-//        $output = new BufferedOutput();
-//        $application->run($input, $output);
-//
-//        // return the output, don't use if you used NullOutput()
-//        $content = $output->fetch();
-//
-//        // return new Response(""), if you used NullOutput()
-//        return $content;
-//    }
 }

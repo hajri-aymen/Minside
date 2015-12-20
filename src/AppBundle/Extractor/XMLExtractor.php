@@ -23,18 +23,17 @@ class XMLExtractor extends AbstractExtractor
 
     public function extract($data, $serializer)
     {
-        $content = array();
+        $users = array();
         foreach($data->xml() as $element) {
 
             unset($element->{'tags'});
             unset($element->{'friends'});
-            $content[] = (array)$element;
 
-//            $user = $serializer->deserialize($element->asXML(), parent::USER_CLASS, ExtractorEnum::EXTRACTOR_XML);
-//            dump($user);die;
+            $user = $serializer->deserialize($element->asXML(), parent::USER_CLASS, ExtractorEnum::EXTRACTOR_XML);
+            $users[] = $user;
         }
 
-        return$content;
+        return $users;
 
     }
 

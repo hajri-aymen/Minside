@@ -46,6 +46,12 @@ class User extends BaseUser
      */
     protected $balance;
     /**
+     * @var string
+     *
+     * @ORM\Column(name="guid", type="string", length=100, nullable=true)
+     */
+    protected $guid;
+    /**
      * @var text
      *
      * @ORM\Column(name="picture", type="text",nullable=true)
@@ -180,6 +186,29 @@ class User extends BaseUser
     public function getBalance()
     {
         return $this->balance;
+    }
+
+    /**
+     * Set guid
+     *
+     * @param string $guid
+     * @return User
+     */
+    public function setGuid($guid)
+    {
+        $this->guid = $guid;
+
+        return $this;
+    }
+
+    /**
+     * Get guid
+     *
+     * @return string
+     */
+    public function getGuid()
+    {
+        return $this->guid;
     }
 
     /**
